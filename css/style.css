@@ -1,0 +1,100 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+
+  background-image: url('../Assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.container {
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.4);
+  min-height: 100vh;
+  padding: 48px;
+  position: relative;
+}
+
+
+.title {
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 32px;
+  font-weight: bold;
+}
+
+
+.info-icon {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 24px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+.btn {
+  padding: 32px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background-blend-mode: overlay;
+}
+
+
+.harrypotter {
+  background-image: url('../Assets/harryPotterIMG.jpg');
+}
+
+.divergent {
+  background-image: url('../Assets/divergentIMG.jpg');
+}
+
+.hungergames {
+  background-image: url('../Assets/hungergamesIMG.jpg');
+}
+
+.doctorwho {
+  background-image: url('../Assets/doctorwhoIMG.jpg');
+}
+
+.the100 {
+  background-image: url('../Assets/the100IMG.jpg');
+}
+
+.mazerunner {
+  background-image: url('../Assets/mazerunnerIMG.jpg');
+}
