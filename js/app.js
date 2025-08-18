@@ -10,13 +10,13 @@ let currentMovie = '';
 let wordList = [];
 
 window.onload = function() {
-    // Get movie parameter from URL
+    // get movie parameter from URL
     const urlParams = new URLSearchParams(window.location.search);
     currentMovie = urlParams.get('movie');
     
     console.log('Current movie:', currentMovie); 
     
-    // Get word list for the selected movie
+    // get word list for the selected movie
     if (currentMovie && moviesWp[currentMovie]) {
         wordList = moviesWp[currentMovie].map(word => word.toUpperCase());
         console.log('Word list:', wordList); 
@@ -25,12 +25,34 @@ window.onload = function() {
         wordList = [];
     }
 
-    // Initialize the game
+    // initialize the game
+    setMovieBackground(currentMovie);
     initGame();
     startTimer();
 };
 
-// Populate the word list based on the selected movie
+// set the background image based on the selected movie
+function setMovieBackground(movieName) {
+    //check if movieName is valid
+    if (!movieName) {
+        console.log('No movie name provided, using default background');
+        return;
+    }
+    
+    // build the filename (movieName + "Background.jpg")
+    const fileName = movieName + 'Background.jpg';
+    
+    // build the full path
+    const fullPath = `url('../Assets/${fileName}')`;
+    
+    // apply it to the body
+    document.body.style.backgroundImage = fullPath;
+    
+    console.log('Background set for movie:', movieName);
+    console.log('Image path:', fullPath);
+}
+
+// populate the word list based on the selected movie
 function populateWordList() {
     const wordListContainer = document.querySelector('.wordList');
     if (!wordListContainer) return;
@@ -46,7 +68,140 @@ function populateWordList() {
     });
 }
 
-// Start the timer
+// create empty grid
+function createEmpqtyGrid() {
+    gird = [];
+    for (let row = 0; row < gridSize; row++) {
+        const newRow = [];
+        for (let col = 0; col < gridSize; col++) {
+            newRow.push(''); 
+        }
+        grid.push(newRow);
+    }
+}
+
+// place words in the grid 
+function placeWords() {
+    const directions = [
+        [0, 1],   // horizontal
+        [1, 0],   // vertical
+        [1, 1],   // diagonal down-right
+        [-1, 1],  // diagonal up-right
+    ];
+    
+    wordList.forEach(word => {
+        let placed = false;
+        let attempts = 0;
+        
+        while (!placed && attempts < 100) {
+            const direction = directions[Math.floor(Math.random() * directions.length)];
+            const [dRow, dCol] = direction;
+            
+            // calculate valid starting positions
+            const maxRow = dRow === 0 ? gridSize : (dRow > 0 ? gridSize - word.length : word.length - 1);
+            const maxCol = dCol === 0 ? gridSize : (dCol > 0 ? gridSize - word.length : word.length - 1);
+            
+            if (maxRow <= 0 || maxCol <= 0) {
+                attempts++;
+                continue;
+            }
+            
+            const startRow = Math.floor(Math.random() * maxRow);
+            const startCol = Math.floor(Math.random() * maxCol);
+            
+            // check if word can be placed
+            let canPlace = true;
+            for (let i = 0; i < word.length; i++) {
+                const row = startRow + (dRow * i);
+                const col = startCol + (dCol * i);
+                
+                if (row < 0 || row >= gridSize || col < 0 || col >= gridSize) {
+                    canPlace = false;
+                    break;
+                }
+                
+                const currentLetter = grid[row][col];
+                if (currentLetter !== '' && currentLetter !== word[i]) {
+                    canPlace = false;
+                    break;
+                }
+            }
+            
+            // place the word if possible
+            if (canPlace) {
+                for (let i = 0; i < word.length; i++) {
+                    const row = startRow + (dRow * i);
+                    const col = startCol + (dCol * i);
+                    grid[row][col] = word[i];
+                }
+                placed = true;
+            }
+            
+            attempts++;
+        }
+    });
+}
+
+// fill empty cells with random letters
+function fillEmptyCells() {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            if (grid[row][col] === '') {
+                grid[row][col] = letters[Math.floor(Math.random() * letters.length)];
+            }
+        }
+    }
+}
+
+// render the grid in HTML
+function renderGrid() {
+    const wordGrid = document.getElementById('wordGrid');
+    if (!wordGrid) return;
+    
+    wordGrid.innerHTML = '';
+    
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            cell.textContent = grid[row][col];
+            cell.setAttribute('data-row', row);
+            cell.setAttribute('data-col', col);
+            
+            // add click event listener
+            cell.addEventListener('click', handleCellClick);
+            
+            wordGrid.appendChild(cell);
+        }
+    }
+}
+
+// handle cell click
+function handleCellClick(event) {
+    const cell = event.target;
+    const row = parseInt(cell.getAttribute('data-row'));
+    const col = parseInt(cell.getAttribute('data-col'));
+    
+    // toggle cell selection
+    if (cell.classList.contains('selected')) {
+        cell.classList.remove('selected');
+        selectedCells = selectedCells.filter(c => !(c.row === row && c.col === col));
+    } else {
+        cell.classList.add('selected');
+        selectedCells.push({ row, col, letter: grid[row][col] });
+    }
+    
+    updateSelectedWord();
+}
+
+// update the selected word display
+function updateSelectedWord() {
+    selectedWord = selectedCells.map(cell => cell.letter).join('');
+    console.log('Selected word:', selectedWord);
+}
+
+// start the timer
 function startTimer() {
     timer = setInterval(() => {
         if (!paused && timeLeft > 0) {
@@ -58,7 +213,7 @@ function startTimer() {
     }, 1000);
 }
 
-// Update timer display
+// update timer display
 function updateTimerDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
@@ -68,14 +223,13 @@ function updateTimerDisplay() {
     }
 }
 
-// End the game
-function endGame() {
-    clearInterval(timer);
-    alert('Time\'s up!');
-}
 
-// Initialize the game
+// initialize the game
 function initGame() {
     populateWordList();
+    createEmpqtyGrid();
+    placeWords();
+    fillEmptyCells();
+    renderGrid();
     
 }

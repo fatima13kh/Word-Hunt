@@ -22,7 +22,7 @@ body {
   position: relative;
 }
 
-
+ 
 .title {
   text-align: center;
   font-size: 48px;
@@ -155,7 +155,7 @@ a {
 }
 
 /* Word grid layout */
-.word-grid {
+.wordGrid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     gap: 8px;
