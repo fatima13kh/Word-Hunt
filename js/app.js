@@ -1,67 +1,81 @@
 const gridSize = 8;
 let grid = [];
-let selecteCells = [];
+let selectedCells = [];
 let selectedWord = '';
 let timer;
 let timeLeft = 300;
 let paused = false;
+let foundWords = [];
+let currentMovie = '';
+let wordList = [];
 
-const movie = new URLSearchParams(window.location.search).get('movie');
-const wordList = moviesWp[movie]?.map(word => word.toUpperCase()) || [];
-
-const wordGrid = document.getElementById('wordGrid');
-const timerDisplay = document.getElementById('timer');
-
-// create the empty 8*8 grid
-function createEmptyGrid() {
-  grid = [];
-  for (let row = 0; row < gridSize; row++) {
-    const newRow = [];
-    for (let col = 0; col < gridSize; col++) {
-      newRow.push(''); // random letter to fill the grid
+window.onload = function() {
+    // Get movie parameter from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    currentMovie = urlParams.get('movie');
+    
+    console.log('Current movie:', currentMovie); 
+    
+    // Get word list for the selected movie
+    if (currentMovie && moviesWp[currentMovie]) {
+        wordList = moviesWp[currentMovie].map(word => word.toUpperCase());
+        console.log('Word list:', wordList); 
+    } else {
+        console.error('Movie not found or no movie selected');
+        wordList = [];
     }
-    grid.push(newRow);
-  }
+
+    // Initialize the game
+    initGame();
+    startTimer();
+};
+
+// Populate the word list based on the selected movie
+function populateWordList() {
+    const wordListContainer = document.querySelector('.wordList');
+    if (!wordListContainer) return;
+    
+    wordListContainer.innerHTML = '<h3>Find these words:</h3>';
+    
+    wordList.forEach(word => {
+        const wordItem = document.createElement('div');
+        wordItem.className = 'wordItem';
+        wordItem.textContent = word;
+        wordItem.setAttribute('data-word', word);
+        wordListContainer.appendChild(wordItem);
+    });
 }
 
-// place the words horizontally in the grid
-function placeWords() {
-  wordList.forEach(word => {
-    let placed = false;
-
-    while (!placed) {
-      const row = Math.floor(Math.random() * gridSize);
-      const col = Math.floor(Math.random() * (gridSize - word.length + 1));
-
-      let canPlace = true;
-
-      for (let i = 0; i < word.length; i++) {
-        const currentLetter = grid[row][col + i];
-        if (currentLetter !== '' && currentLetter !== word[i]) {
-          canPlace = false;
-          break;
+// Start the timer
+function startTimer() {
+    timer = setInterval(() => {
+        if (!paused && timeLeft > 0) {
+            timeLeft--;
+            updateTimerDisplay();
+        } else if (timeLeft === 0) {
+            endGame();
         }
-      }
-
-      if (canPlace) {
-        for (let i = 0; i < word.length; i++) {
-          grid[row][col + i] = word[i];
-        }
-        placed = true;
-      }
-    }
-  });
+    }, 1000);
 }
 
+// Update timer display
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    const timerDisplay = document.getElementById('timerDisplay');
+    if (timerDisplay) {
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+}
 
+// End the game
+function endGame() {
+    clearInterval(timer);
+    alert('Time\'s up!');
+}
 
-
-
-
+// Initialize the game
 function initGame() {
-  createEmptyGrid();
-  placeWords();
-   
+    populateWordList();
+    
 }
-
-initGame();

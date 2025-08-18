@@ -1,8 +1,8 @@
 const moviesWp = {
-  harrypotter: ["Harry", "Witch", "Magic", "Spell", "Wizard", "Wand", "Potion", "Castle"],
-  divergent: ["Divergent", "Faction", "Tris", "Four", "Simulation", "Fear", "Choice"],
-  hungergames: ["Hunger", "District", "Katniss", "Peeta", "Capitol", "Arena", "Rebellion"],
-  doctorwho: ["Doctor", "TARDIS", "Dalek", "Companion", "Time", "Space", "Gallifrey"],
-  the100: ["Ark", "Clarke", "Bellamy", "Grounders", "Sky", "Nightblood", "Radiation"],
-  mazerunner: ["Maze", "Glade", "Runner", "Thomas", "WICKED", "Labyrinth", "Escape"]
+    harryPotter: ["HARRY", "WITCH", "MAGIC", "SPELL", "WIZARD", "WAND", "POTION", "CASTLE"],
+    divergent: ["DIVERGENT", "FACTION", "TRIS", "FOUR", "SIMULATION", "FEAR", "CHOICE", "BRAVE"],
+    hungerGames: ["HUNGER", "DISTRICT", "KATNISS", "PEETA", "CAPITOL", "ARENA", "REBELLION", "FIRE"],
+    doctorWho: ["DOCTOR", "TARDIS", "DALEK", "COMPANION", "TIME", "SPACE", "GALLIFREY", "SONIC"],
+    the100: ["ARK", "CLARKE", "BELLAMY", "GROUNDERS", "SKY", "NIGHTBLOOD", "RADIATION", "EARTH"],
+    mazeRunner: ["MAZE", "GLADE", "RUNNER", "THOMAS", "WICKED", "LABYRINTH", "ESCAPE", "WALLS"]
 };

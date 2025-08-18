@@ -75,7 +75,7 @@ body {
 }
 
 
-.harrypotter {
+.harryPotter {
   background-image: url('../Assets/harryPotterIMG.jpg');
 }
 
@@ -83,20 +83,20 @@ body {
   background-image: url('../Assets/divergentIMG.jpg');
 }
 
-.hungergames {
-  background-image: url('../Assets/hungergamesIMG.jpg');
+.hungerGames {
+  background-image: url('../Assets/hungerGamesIMG.jpg');
 }
 
-.doctorwho {
-  background-image: url('../Assets/doctorwhoIMG.jpg');
+.doctorWho {
+  background-image: url('../Assets/doctorWhoIMG.jpg');
 }
 
 .the100 {
   background-image: url('../Assets/the100IMG.jpg');
 }
 
-.mazerunner {
-  background-image: url('../Assets/mazerunnerIMG.jpg');
+.mazeRunner {
+  background-image: url('../Assets/mazeRunnerIMG.jpg');
 }
 
 a {
