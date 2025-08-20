@@ -43,7 +43,7 @@ function setMovieBackground(movieName) {
     const fileName = movieName + 'Background.jpg';
     
     // build the full path
-    const fullPath = `url('../Assets/${fileName}')`;
+    const fullPath = `url('/Assets/${fileName}')`;
     
     // apply it to the body
     document.body.style.backgroundImage = fullPath;
