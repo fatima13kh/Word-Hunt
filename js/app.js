@@ -223,7 +223,6 @@ function updateTimerDisplay() {
     }
 }
 
-
 // initialize the game
 function initGame() {
     populateWordList();
@@ -233,3 +232,25 @@ function initGame() {
     renderGrid();
     
 }
+
+// Event listener for buttons 
+document.addEventListener('DOMContentLoaded', () => {
+    // restart button
+    const restartButton = document.querySelector('.restartButton');
+    if (restartButton) {
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
+    }
+    // pause button 
+    const pauseButton = document.querySelector('.pauseButton');
+    if (pauseButton) {
+        pauseButton.addEventListener('click', () => {
+            paused = !paused;
+            pauseButton.textContent = paused ? 'Resume' : 'Pause';
+
+        });
+    }
+
+    //submit button 
+});
