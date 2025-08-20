@@ -45,7 +45,7 @@ function setMovieBackground(movieName) {
 
     // choose the path based on environment
     const imagePath = isGitHubPages
-        ? `https://fatima13kh.github.io/Assets/${fileName}` // absolute URL for GitHub Pages
+        ? `Assets/${fileName}` // absolute URL for GitHub Pages
         : `../Assets/${fileName}`; // relative path for local testing
 
     document.body.style.backgroundImage = `url('${imagePath}')`;
