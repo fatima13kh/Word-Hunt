@@ -33,23 +33,25 @@ window.onload = function() {
 
 // set the background image based on the selected movie
 function setMovieBackground(movieName) {
-    //check if movieName is valid
     if (!movieName) {
         console.log('No movie name provided, using default background');
         return;
     }
-    
-    // build the filename (movieName + "Background.jpg")
+
     const fileName = movieName + 'Background.jpg';
-    
-    // build the full path
-    const fullPath = `url('/Assets/${fileName}')`;
-    
-    // apply it to the body
-    document.body.style.backgroundImage = fullPath;
-    
+
+    // detect if running on GitHub Pages
+    const isGitHubPages = window.location.hostname.includes('github.io');
+
+    // choose the path based on environment
+    const imagePath = isGitHubPages
+        ? `https://fatima13kh.github.io/Assets/${fileName}` // absolute URL for GitHub Pages
+        : `../Assets/${fileName}`; // relative path for local testing
+
+    document.body.style.backgroundImage = `url('${imagePath}')`;
+
     console.log('Background set for movie:', movieName);
-    console.log('Image path:', fullPath);
+    console.log('Image path:', imagePath);
 }
 
 // populate the word list based on the selected movie
