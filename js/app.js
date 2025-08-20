@@ -253,4 +253,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //submit button 
+   const submitButton = document.querySelector('.submitButton');
+    if (submitButton) {
+        submitButton.addEventListener('click', () => {
+            console.log('Submit clicked, selected word:', selectedWord);
+            
+            if (selectedWord && wordList.includes(selectedWord)) {
+                // Check if word was already found
+                if (foundWords.includes(selectedWord)) {
+                    return;
+                }
+                
+                foundWords.push(selectedWord);
+                
+                // Mark cells as found
+                selectedCells.forEach(cell => {
+                    const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
+                    if (gridCell) {
+                        gridCell.classList.remove('selected');
+                        gridCell.classList.add('found');
+                    }
+                });
+                
+                // Mark word in the word list as found
+                const wordItem = document.querySelector(`[data-word="${selectedWord}"]`);
+                if (wordItem) {
+                    wordItem.classList.add('found');
+                }
+                
+                // Clear selection
+                selectedCells = [];
+                selectedWord = '';
+                updateSelectedWord();
+                
+                // Check if all words found
+                if (foundWords.length === wordList.length) {
+                    clearInterval(timer);
+                    alert('Congratulations! You found all words!');
+                }
+                
+            } else if (selectedWord === '') {
+                alert('Please select some letters first!');
+            } else {
+                
+                
+                // Clear the selection
+                selectedCells.forEach(cell => {
+                    const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
+                    if (gridCell) {
+                        gridCell.classList.remove('selected');
+                    }
+                });
+                selectedCells = [];
+                selectedWord = '';
+                updateSelectedWord();
+            }
+        });
+    }
 });
+
