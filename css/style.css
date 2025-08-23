@@ -103,6 +103,35 @@ a {
     color: white;
     text-decoration: none;
 }
+.instructions-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: black; 
+    color: white; 
+    border: 2px solid #333;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.instructions-popup h2 {
+    margin-bottom: 10px;
+}
+
+.instructions-popup p {
+    margin: 5px 0;
+}
+
+.instructions-popup .close-instructions {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
 /* Game page specific styles 
 
@@ -120,6 +149,7 @@ a {
     margin: 0 ;
     
 }
+
 
 /* Back button */
 .back-btn {
@@ -242,6 +272,17 @@ a {
     color: #90ee90;
 }
 
+.grid-cell.wrong {
+    background-color: rgba(255, 0, 0, 0.6);
+    border-color: #ff0000;
+    box-shadow: 0px 4px 12px rgba(255, 0, 0, 0.4);
+}
+
+.wordItem.wrong {
+    color: #ff0000;
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: 5px;
+}
 /* Controls layout */
 .controls {
     display: flex;
@@ -322,6 +363,45 @@ a {
     border-radius: 2px;
     transition: all 0.1s ease;
     box-shadow: 0px 2px 4px rgba(255, 215, 0, 0.4);
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 40px; /* Increased padding */
+    border-radius: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content */
+    justify-content: center; /* Center the content vertically */
+    width: 80%; /* Set width to a percentage */
+    max-width: 600px; /* Optional: Max width */
+}
+
+.popup img {
+    width: 100%; /* Make the image responsive */
+    max-width: 400px; /* Optional: Set a max width for the GIF */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px 0;
+}
+
+.popup .close-popup {
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.popup .close-popup:hover {
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Responsive design for game page */

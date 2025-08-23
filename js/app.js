@@ -3,7 +3,7 @@ let grid = [];
 let selectedCells = [];
 let selectedWord = '';
 let timer;
-let timeLeft = 300;
+let timeLeft = 200;
 let paused = false;
 let foundWords = [];
 let currentMovie = '';
@@ -20,6 +20,7 @@ window.onload = function() {
     if (currentMovie && moviesWp[currentMovie]) {
         wordList = moviesWp[currentMovie].map(word => word.toUpperCase());
         console.log('Word list:', wordList); 
+
     } else {
         console.error('Movie not found or no movie selected');
         wordList = [];
@@ -30,6 +31,33 @@ window.onload = function() {
     initGame();
     startTimer();
 };
+
+// instruction popup function 
+function showInstructions() {
+    const instructionsPopup = document.createElement('div');
+    instructionsPopup.className = 'instructions-popup';
+
+    instructionsPopup.innerHTML = `
+        <h2>Game Instructions</h2>
+        <p>Click on the name of the movie to be directed to the word search based on the theme.</p>
+        <p>Look at the list of words and click on them in the correct order.</p>
+        <p>You can choose the same letter more than once if it occurs in the same path (diagonal, horizontal, or vertical).</p>
+        <p>If you find all the words and cross the whole list, you win!</p>
+        <p>If the timer runs out and you haven't chosen anything, you lose.</p>
+        <p>You can pause or restart the game anytime you want.</p>
+        <button class="close-instructions">Close</button>
+    `;
+
+    document.body.appendChild(instructionsPopup);
+
+    // Close the instructions popup
+    const closeButton = instructionsPopup.querySelector('.close-instructions');
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            document.body.removeChild(instructionsPopup);
+        });
+    }
+}
 
 // set the background image based on the selected movie
 function setMovieBackground(movieName) {
@@ -87,59 +115,60 @@ function placeWords() {
     const directions = [
         [0, 1],   // horizontal
         [1, 0],   // vertical
-        [1, 1],   // diagonal down-right
-        [-1, 1],  // diagonal up-right
+        [1, 1]   // diagonal down-right
     ];
     
     wordList.forEach(word => {
         let placed = false;
         let attempts = 0;
-        
+
         while (!placed && attempts < 100) {
             const direction = directions[Math.floor(Math.random() * directions.length)];
             const [dRow, dCol] = direction;
-            
-            // calculate valid starting positions
-            const maxRow = dRow === 0 ? gridSize : (dRow > 0 ? gridSize - word.length : word.length - 1);
-            const maxCol = dCol === 0 ? gridSize : (dCol > 0 ? gridSize - word.length : word.length - 1);
-            
-            if (maxRow <= 0 || maxCol <= 0) {
+
+            // Calculate valid starting positions based on word length and direction
+            const maxRow = dRow === 0 ? gridSize : (dRow > 0 ? gridSize - word.length : gridSize - 1);
+            const maxCol = dCol === 0 ? gridSize : (dCol > 0 ? gridSize - word.length : gridSize - 1);
+
+            if (maxRow < 0 || maxCol < 0) {
                 attempts++;
-                continue;
+                continue; // Skip this attempt if the max positions are invalid
             }
-            
-            const startRow = Math.floor(Math.random() * maxRow);
-            const startCol = Math.floor(Math.random() * maxCol);
-            
-            // check if word can be placed
+
+            const startRow = Math.floor(Math.random() * (maxRow + 1)); // Include maxRow
+            const startCol = Math.floor(Math.random() * (maxCol + 1)); // Include maxCol
+
+            // Check if the word can be placed
             let canPlace = true;
             for (let i = 0; i < word.length; i++) {
                 const row = startRow + (dRow * i);
                 const col = startCol + (dCol * i);
-                
+
+                // Check bounds
                 if (row < 0 || row >= gridSize || col < 0 || col >= gridSize) {
                     canPlace = false;
                     break;
                 }
-                
+
                 const currentLetter = grid[row][col];
+                // Check if the cell is empty or matches the word's letter
                 if (currentLetter !== '' && currentLetter !== word[i]) {
                     canPlace = false;
                     break;
                 }
             }
-            
-            // place the word if possible
+
+            // Place the word if possible
             if (canPlace) {
                 for (let i = 0; i < word.length; i++) {
                     const row = startRow + (dRow * i);
                     const col = startCol + (dCol * i);
-                    grid[row][col] = word[i];
+                    grid[row][col] = word[i]; // Place the letter in the grid
                 }
-                placed = true;
+                placed = true; // Mark the word as placed
             }
-            
-            attempts++;
+
+            attempts++; // Increment attempts counter
         }
     });
 }
@@ -203,6 +232,43 @@ function updateSelectedWord() {
     console.log('Selected word:', selectedWord);
 }
 
+//end the game when time is up
+function endGame() {
+    clearInterval(timer);
+    
+    if (foundWords.length === wordList.length) {
+        showPopUp('win');
+    } else {
+        showPopUp('lose');
+    }
+}
+
+function showPopUp(result) {
+    const popUp = document.createElement('div');
+    popUp.className = 'popup';
+
+    const message = result === 'win' ? 'Congratulations! You Win!' : 'Time is up, You Lose!';
+    const gifName = result === 'win' ? `${currentMovie}WinGIF.gif` : `${currentMovie}LoseGIF.gif`;
+    const gifPath = `Assets/${gifName}`; 
+
+    popUp.innerHTML = `
+        <h2>${message}</h2>
+        <img src="${gifPath}" alt="${message}" />
+        <button class="close-popup">Close</button>
+    `;
+
+    document.body.appendChild(popUp);
+
+    // Close pop-up on button click
+    const closeButton = popUp.querySelector('.close-popup');
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            document.body.removeChild(popUp);
+            location.reload(); // reload the game
+        });
+    }
+}
+
 // start the timer
 function startTimer() {
     timer = setInterval(() => {
@@ -225,6 +291,8 @@ function updateTimerDisplay() {
     }
 }
 
+
+
 // initialize the game
 function initGame() {
     populateWordList();
@@ -235,8 +303,14 @@ function initGame() {
     
 }
 
+
 // Event listener for buttons 
 document.addEventListener('DOMContentLoaded', () => {
+    // instructions button
+    const infoIcon = document.querySelector('.info-icon');
+    if (infoIcon) {
+        infoIcon.addEventListener('click', showInstructions);
+    }
     // restart button
     const restartButton = document.querySelector('.restartButton');
     if (restartButton) {
@@ -254,63 +328,88 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //submit button 
-   const submitButton = document.querySelector('.submitButton');
-    if (submitButton) {
-        submitButton.addEventListener('click', () => {
-            console.log('Submit clicked, selected word:', selectedWord);
-            
-            if (selectedWord && wordList.includes(selectedWord)) {
-                // Check if word was already found
-                if (foundWords.includes(selectedWord)) {
-                    return;
-                }
-                
-                foundWords.push(selectedWord);
-                
-                // Mark cells as found
-                selectedCells.forEach(cell => {
-                    const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
-                    if (gridCell) {
-                        gridCell.classList.remove('selected');
-                        gridCell.classList.add('found');
-                    }
-                });
-                
-                // Mark word in the word list as found
-                const wordItem = document.querySelector(`[data-word="${selectedWord}"]`);
-                if (wordItem) {
-                    wordItem.classList.add('found');
-                }
-                
-                // Clear selection
-                selectedCells = [];
-                selectedWord = '';
-                updateSelectedWord();
-                
-                // Check if all words found
-                if (foundWords.length === wordList.length) {
-                    clearInterval(timer);
-                    alert('Congratulations! You found all words!');
-                }
-                
-            } else if (selectedWord === '') {
-                alert('Please select some letters first!');
-            } else {
-                
-                
-                // Clear the selection
-                selectedCells.forEach(cell => {
-                    const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
-                    if (gridCell) {
-                        gridCell.classList.remove('selected');
-                    }
-                });
-                selectedCells = [];
-                selectedWord = '';
-                updateSelectedWord();
+   //submit button
+const submitButton = document.querySelector('.submitButton');
+if (submitButton) {
+    submitButton.addEventListener('click', () => {
+        console.log('Submit clicked, selected word:', selectedWord);
+        
+        if (selectedWord && wordList.includes(selectedWord)) {
+            // Check if word was already found
+            if (foundWords.includes(selectedWord)) {
+                alert('You already found this word!');
+                return;
             }
-        });
-    }
+            
+            foundWords.push(selectedWord);
+            
+            // Mark cells as found
+            selectedCells.forEach(cell => {
+                const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
+                if (gridCell) {
+                    gridCell.classList.remove('selected');
+                    gridCell.classList.add('found');
+                }
+            });
+            
+            // Mark word in the word list as found
+            const wordItem = document.querySelector(`[data-word="${selectedWord}"]`);
+            if (wordItem) {
+                wordItem.classList.add('found');
+            }
+            
+            // Clear selection
+            selectedCells = [];
+            selectedWord = '';
+            updateSelectedWord();
+            
+            // Check if all words found
+            if (foundWords.length === wordList.length) {
+                clearInterval(timer);
+                showPopUp('win');
+            }
+            
+        } else {
+            // WRONG WORD - Show red feedback then clear
+            const wrongCells = [...selectedCells]; // Save cells before clearing
+            
+            // Highlight cells red
+            wrongCells.forEach(cell => {
+                const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
+                if (gridCell) {
+                    gridCell.classList.remove('selected');
+                    gridCell.classList.add('wrong');
+                }
+            });
+            
+            // Also highlight the word in the list if it matches any word
+            const wordItem = document.querySelector(`[data-word="${selectedWord}"]`);
+            if (wordItem) {
+                wordItem.classList.add('wrong');
+            }
+            
+            // Clear selection immediately
+            selectedCells = [];
+            selectedWord = '';
+            updateSelectedWord();
+            
+            // After 1 second, remove red styling from both grid and word list
+            setTimeout(() => {
+                wrongCells.forEach(cell => {
+                    const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
+                    if (gridCell) {
+                        gridCell.classList.remove('wrong');
+                    }
+                });
+                
+                // Remove red from word list too
+                const wordItems = document.querySelectorAll('.wordItem.wrong');
+                wordItems.forEach(item => {
+                    item.classList.remove('wrong');
+                });
+            }, 1000);
+        }
+    });
+}
 });
 
