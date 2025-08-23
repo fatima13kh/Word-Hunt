@@ -8,6 +8,7 @@ let paused = false;
 let foundWords = [];
 let currentMovie = '';
 let wordList = [];
+let gameAudio = new Audio();
 
 window.onload = function() {
     // get movie parameter from URL
@@ -73,7 +74,7 @@ function setMovieBackground(movieName) {
 
     // choose the path based on environment
     const imagePath = isGitHubPages
-        ? `Assets/${fileName}` // absolute URL for GitHub Pages
+        ? `Assets/${fileName}` // for deployment on GitHub Pages
         : `../Assets/${fileName}`; // relative path for local testing
 
     document.body.style.backgroundImage = `url('${imagePath}')`;
@@ -126,49 +127,49 @@ function placeWords() {
             const direction = directions[Math.floor(Math.random() * directions.length)];
             const [dRow, dCol] = direction;
 
-            // Calculate valid starting positions based on word length and direction
+            // calculate valid starting positions based on word length and direction
             const maxRow = dRow === 0 ? gridSize : (dRow > 0 ? gridSize - word.length : gridSize - 1);
             const maxCol = dCol === 0 ? gridSize : (dCol > 0 ? gridSize - word.length : gridSize - 1);
 
             if (maxRow < 0 || maxCol < 0) {
                 attempts++;
-                continue; // Skip this attempt if the max positions are invalid
+                continue; // skip this attempt if the max positions are invalid
             }
 
-            const startRow = Math.floor(Math.random() * (maxRow + 1)); // Include maxRow
-            const startCol = Math.floor(Math.random() * (maxCol + 1)); // Include maxCol
+            const startRow = Math.floor(Math.random() * (maxRow + 1)); // include maxRow
+            const startCol = Math.floor(Math.random() * (maxCol + 1)); // include maxCol
 
-            // Check if the word can be placed
+            // check if the word can be placed
             let canPlace = true;
             for (let i = 0; i < word.length; i++) {
                 const row = startRow + (dRow * i);
                 const col = startCol + (dCol * i);
 
-                // Check bounds
+                // check bounds
                 if (row < 0 || row >= gridSize || col < 0 || col >= gridSize) {
                     canPlace = false;
                     break;
                 }
 
                 const currentLetter = grid[row][col];
-                // Check if the cell is empty or matches the word's letter
+                // check if the cell is empty or matches the word's letter
                 if (currentLetter !== '' && currentLetter !== word[i]) {
                     canPlace = false;
                     break;
                 }
             }
 
-            // Place the word if possible
+            // place the word if possible
             if (canPlace) {
                 for (let i = 0; i < word.length; i++) {
                     const row = startRow + (dRow * i);
                     const col = startCol + (dCol * i);
-                    grid[row][col] = word[i]; // Place the letter in the grid
+                    grid[row][col] = word[i]; // place the letter in the grid
                 }
-                placed = true; // Mark the word as placed
+                placed = true; 
             }
 
-            attempts++; // Increment attempts counter
+            attempts++; // increment attempts counter
         }
     });
 }
@@ -259,7 +260,7 @@ function showPopUp(result) {
 
     document.body.appendChild(popUp);
 
-    // Close pop-up on button click
+    // close pop-up on button click
     const closeButton = popUp.querySelector('.close-popup');
     if (closeButton) {
         closeButton.addEventListener('click', () => {
@@ -304,7 +305,7 @@ function initGame() {
 }
 
 
-// Event listener for buttons 
+// event listener for buttons 
 document.addEventListener('DOMContentLoaded', () => {
     // instructions button
     const infoIcon = document.querySelector('.info-icon');
@@ -343,7 +344,7 @@ if (submitButton) {
             
             foundWords.push(selectedWord);
             
-            // Mark cells as found
+            // mark cells as found
             selectedCells.forEach(cell => {
                 const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
                 if (gridCell) {
@@ -352,28 +353,28 @@ if (submitButton) {
                 }
             });
             
-            // Mark word in the word list as found
+            // mark word in the word list as found
             const wordItem = document.querySelector(`[data-word="${selectedWord}"]`);
             if (wordItem) {
                 wordItem.classList.add('found');
             }
             
-            // Clear selection
+            // clear selection
             selectedCells = [];
             selectedWord = '';
             updateSelectedWord();
             
-            // Check if all words found
+            // check if all words found
             if (foundWords.length === wordList.length) {
                 clearInterval(timer);
                 showPopUp('win');
             }
             
         } else {
-            // WRONG WORD - Show red feedback then clear
+            // when the selected word is incorrect
             const wrongCells = [...selectedCells]; // Save cells before clearing
             
-            // Highlight cells red
+            // highlight cells red
             wrongCells.forEach(cell => {
                 const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
                 if (gridCell) {
@@ -382,18 +383,18 @@ if (submitButton) {
                 }
             });
             
-            // Also highlight the word in the list if it matches any word
+            // highlight the word in the list if it matches any word
             const wordItem = document.querySelector(`[data-word="${selectedWord}"]`);
             if (wordItem) {
                 wordItem.classList.add('wrong');
             }
             
-            // Clear selection immediately
+            // clear selection immediately
             selectedCells = [];
             selectedWord = '';
             updateSelectedWord();
             
-            // After 1 second, remove red styling from both grid and word list
+            // after 1 second, remove red styling from both grid and word list
             setTimeout(() => {
                 wrongCells.forEach(cell => {
                     const gridCell = document.querySelector(`[data-row="${cell.row}"][data-col="${cell.col}"]`);
@@ -402,7 +403,7 @@ if (submitButton) {
                     }
                 });
                 
-                // Remove red from word list too
+                // remove red from word list too
                 const wordItems = document.querySelectorAll('.wordItem.wrong');
                 wordItems.forEach(item => {
                     item.classList.remove('wrong');
