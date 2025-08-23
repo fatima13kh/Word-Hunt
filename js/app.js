@@ -15,12 +15,11 @@ window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     currentMovie = urlParams.get('movie');
     
-    console.log('Current movie:', currentMovie); 
-    
     // get word list for the selected movie
     if (currentMovie && moviesWp[currentMovie]) {
         wordList = moviesWp[currentMovie].map(word => word.toUpperCase());
         console.log('Word list:', wordList); 
+
 
     } else {
         console.error('Movie not found or no movie selected');
