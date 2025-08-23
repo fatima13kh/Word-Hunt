@@ -8,7 +8,6 @@ let paused = false;
 let foundWords = [];
 let currentMovie = '';
 let wordList = [];
-let gameAudio = new Audio();
 
 window.onload = function() {
     // get movie parameter from URL

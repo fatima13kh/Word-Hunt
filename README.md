@@ -22,54 +22,66 @@ Players will select a themed movie, and be taken to a unique puzzle grid contain
   . All words are found.
   . The timer runs out.
 
+  Game Mockup Figma link:
+  https://www.figma.com/design/cna0r7vO70npfzpmsqFogU/Untitled?node-id=0-1&t=AohlFmVs1LWlfB8T-1
+
+
  Pseudocode
-// 1) Define all necessary variables:
-//    - Movie titles array (9 movies for now)
-//    - For each movie: corresponding word list
-//    - Timer variable
-//    - Game state (playing, paused, won, lost)
-//    - Selected letters for current attempt
+ 1) Define necessary variables:
+   - Movie titles array (6 movies for now)
+   - For each movie: corresponding word list
+   - Timer variable
+   - Game state (playing, paused, won, lost)
+   - Selected letters for current attempt
 
-// 2) On page load (index.html):
-//    - Display game title
-//    - Create a 3x3 grid (table or div) of movie titles
-//    - Each movie tile is clickable
-//    - Add event listeners to each movie tile
+2) On page load (index.html):
+   - Display game title
+   - Create a grid (table or div) of movie titles
+   - Each movie tile is clickable
+   - Add event listeners to each movie tile
 
-// 3) When a movie tile is clicked:
-//    - Redirect to the corresponding word hunt page related to the chosen movie 
-//    - On that page, read the movie name from URL or state
+3) When a movie tile is clicked:
+   - Redirect to the corresponding word hunt page related to the chosen movie 
+   - On that page, read the movie name from the URL or state
 
-// 4) On the word hunt game page:
-//    - Load the corresponding word list for the selected movie
-//    - Generate a grid (larger table) filled with random letters
-//    - Insert the hidden words from the list into the grid
-//    - Display the word list on the side or below the grid
-//    - Start the countdown timer
-//    - Display "Back" and "Pause" buttons
+4) On the word hunt game page:
+   - Load the corresponding word list for the selected movie
+   - Generate a grid filled with random letters
+   - Insert the hidden words from the list into the grid
+   - Display the word list on the side or below the grid
+   - Start the countdown timer
+   - Display "Back" and "Pause" buttons
 
-// 5) Handle letter clicking logic:
-//    - Allow the user to click letters one by one
-//    - Keep track of clicked sequence
-//    - When Enter or Confirm is pressed, check if selected sequence matches a word
-//        - If yes:
-//            - Highlight the word in the grid
-//            - Strike through or highlight the word in the list
-//        - If no:
-//            - Briefly show the selection in red, then reset
+5) Handle letter clicking logic:
+   - Allow the user to click letters one by one
+   - Keep track of clicked sequence
+   - When Enter or Confirm is pressed, check if the selected sequence matches a word
+       - If yes:
+           - Highlight the word in the grid
+           - Strike through or highlight the word in the list
+       - If no:
+           - Briefly show the selection in red, then reset
 
-// 6) Handle pause and back button:
-//    - Pause button toggles game state and stops timer
-//    - Back button returns to index.html and clears game state
+6) Handle pause and back button:
+   - Pause button toggles game state and stops timer
+   - Back button returns to index.html and clears game state
 
-// 7) Monitor game state:
-//    - If all words are found:
-//        - Stop timer
-//        - Display a “You Win!” message
-//    - If timer reaches 0:
-//        - Display a “Game Over” message
+7) Monitor game state:
+   - If all words are found:
+       - Stop timer
+       - Display a “You Win!” 
+   - If timer reaches 0:
+       - Display a “You Lose!” 
 
-// 8) Provide reset/play again functionality:
-//    - Button to restart the same puzzle
-//    - Or redirect to the home page to pick a new movie
+8) Provide reset/play again functionality:
+   - Button to restart the same puzzle
+   - Or redirect to the home page to pick a new movie
+
+
+   Game Future enhancement :- 
+
+   1- Points will be gathered to see the score 
+   2- Player can choose which character to play with for each movie 
+   3- Audio will be played based on the selected movie 
+   4- There will be levels eady, medium and hard
 
