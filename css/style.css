@@ -372,21 +372,21 @@ a {
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 40px; /* Increased padding */
+    padding: 40px; 
     border-radius: 10px;
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the content */
-    justify-content: center; /* Center the content vertically */
-    width: 80%; /* Set width to a percentage */
-    max-width: 600px; /* Optional: Max width */
+    align-items: center; 
+    justify-content: center; 
+    width: 80%; 
+    max-width: 600px;
 }
 
 .popup img {
-    width: 100%; /* Make the image responsive */
-    max-width: 400px; /* Optional: Set a max width for the GIF */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%; 
+    max-width: 400px; 
+    height: auto; 
     margin: 10px 0;
 }
 
