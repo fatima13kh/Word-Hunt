@@ -1,87 +1,195 @@
-# word-hunt-browser-based-game-project
 
-Game Title: Word Hunt
+---
 
-What is Word Hunt Search?
-Word Hunt Search is a digital twist on the classic word search puzzle. Traditionally found in newspapers or activity books, this game challenges players to find hidden words within a grid of seemingly random letters. This version will be built for the web, providing a more dynamic and interactive experience.
-Players will select a themed movie, and be taken to a unique puzzle grid containing hidden words related to that themed movie. The grid includes both random letters and actual target words. The goal is to locate all hidden words within a set time limit.
+# Word Hunt
 
- Game Concept Overview:
-- It’s a one-player game.
-- The player chooses a movie from a displayed list.
-- After choosing, they are taken to a new screen with:
-  . A grid of random letters, including hidden words.
-  . A list of target words to find.
-  . A timer that starts counting down immediately.
-- The player clicks on letters in sequence to form words.
-- If the selected letters form a correct word from the list:
-  . The word is highlighted in the grid.
-- If the selection is incorrect:
-  . The letters turn red, then return to normal.
-- The game ends when either:
-  . All words are found.
-  . The timer runs out.
+---
 
-  Game Mockup Figma link:
-  https://www.figma.com/design/cna0r7vO70npfzpmsqFogU/Untitled?node-id=0-1&t=AohlFmVs1LWlfB8T-1
+![Splash Screen](Assets/splashScreen.png)
+![Game Screen](Assets/wordHuntScreen.png)
+![Instructions Screen](Assets/instructionsPopup.png)
 
+---
 
- Pseudocode
- 1) Define necessary variables:
-   - Movie titles array (6 movies for now)
-   - For each movie: corresponding word list
-   - Timer variable
-   - Game state (playing, paused, won, lost)
-   - Selected letters for current attempt
+## 🎮 Game Title: Word Hunt
 
-2) On page load (index.html):
-   - Display game title
-   - Create a grid (table or div) of movie titles
-   - Each movie tile is clickable
-   - Add event listeners to each movie tile
+### What is Word Hunt?
 
-3) When a movie tile is clicked:
-   - Redirect to the corresponding word hunt page related to the chosen movie 
-   - On that page, read the movie name from the URL or state
+**Word Hunt** is a browser-based word puzzle game that takes the classic word search experience to the next level. Players pick a movie theme and dive into a grid filled with hidden words related to that movie. With a ticking clock and visually immersive background, Word Hunt delivers a fast-paced, interactive challenge.
 
-4) On the word hunt game page:
-   - Load the corresponding word list for the selected movie
-   - Generate a grid filled with random letters
-   - Insert the hidden words from the list into the grid
-   - Display the word list on the side or below the grid
-   - Start the countdown timer
-   - Display "Back" and "Pause" buttons
+---
 
-5) Handle letter clicking logic:
-   - Allow the user to click letters one by one
-   - Keep track of clicked sequence
-   - When Enter or Confirm is pressed, check if the selected sequence matches a word
-       - If yes:
-           - Highlight the word in the grid
-           - Strike through or highlight the word in the list
-       - If no:
-           - Briefly show the selection in red, then reset
+## 🌟 Why This Game?
 
-6) Handle pause and back button:
-   - Pause button toggles game state and stops timer
-   - Back button returns to index.html and clears game state
+I chose to build **Word Hunt** to blend nostalgia with pop culture. By using familiar movie titles as the theme, it draws players into a personalized word puzzle experience while exercising their brain.
 
-7) Monitor game state:
-   - If all words are found:
-       - Stop timer
-       - Display a “You Win!” 
-   - If timer reaches 0:
-       - Display a “You Lose!” 
+Absolutely! Here's a clean, copy-paste-ready version of the **Game Concept Overview** formatted for your `README.md`:
 
-8) Provide reset/play again functionality:
-   - Button to restart the same puzzle
-   - Or redirect to the home page to pick a new movie
+---
+
+## 🧠 Game Concept Overview
+
+* 🎮 It’s a **one-player** word puzzle game.
+* 🧩 The player chooses a **movie** from a displayed list on the home screen.
+* 📺 After selecting a movie, they are taken to a new screen with:
+
+  * A **grid of random letters** (some letters form hidden words)
+  * A **list of target words** to find
+  * A **countdown timer** that starts automatically
+* ✍️ The player clicks on letters in sequence to form words.
+
+### ✅ If the selected letters form a correct word:
+
+* The word is **highlighted** in the grid.
+
+### ❌ If the selected letters form an incorrect word:
+
+* The letters briefly **turn red**, then return to normal.
+
+### 🏁 The game ends when:
+
+* **All words are found** → 🎉 *You Win!*
+* **The timer runs out** → ⌛ *You Lose!*
 
 
-   Game Future enhancement :- 
+---
 
-   1- Points will be gathered to see the score 
-   2- Player can choose which character to play with for each movie 
-   3- Audio will be played based on the selected movie 
-   4- There will be levels eady, medium and hard
+## 🧠 Pseudocode
+
+```text
+Define necessary variables:
+- Movie titles array (6 movies for now)
+- For each movie: corresponding word list
+- Timer variable
+- Game state (playing, paused, won, lost)
+- Selected letters for current attempt
+
+On page load (index.html):
+- Display game title
+- Create a grid (table or div) of movie titles
+- Each movie tile is clickable
+- Add event listeners to each movie tile
+
+When a movie tile is clicked:
+- Redirect to the corresponding word hunt page related to the chosen movie
+- On that page, read the movie name from the URL or state
+
+On the word hunt game page:
+- Load the corresponding word list for the selected movie
+- Generate a grid filled with random letters
+- Insert the hidden words from the list into the grid
+- Display the word list on the side or below the grid
+- Start the countdown timer
+- Display "Back" and "Pause" buttons
+
+Handle letter clicking logic:
+- Allow the user to click letters one by one
+- Keep track of clicked sequence
+- When Enter or Confirm is pressed, check if the selected sequence matches a word
+    - If yes:
+        - Highlight the word in the grid
+        - Strike through or highlight the word in the list
+    - If no:
+        - Briefly show the selection in red, then reset
+
+Handle pause and back button:
+- Pause button toggles game state and stops timer
+- Back button returns to index.html and clears game state
+
+Monitor game state:
+- If all words are found:
+    - Stop timer
+    - Display a “You Win!”
+- If timer reaches 0:
+    - Display a “You Lose!”
+
+Provide reset/play again functionality:
+- Button to restart the same puzzle
+- Or redirect to the home page to pick a new movie
+
+---
+
+## 🚀 Getting Started
+
+### 🎮 Play the Game - Deployed Website Link
+
+[Click here to play the game](https://fatima13kh.github.io/word-hunt-browser-based-game-project/)
+
+
+### 📝 Planning Materials
+
+* [Figma Game Mockup](https://www.figma.com/design/cna0r7vO70npfzpmsqFogU/Untitled?node-id=0-1&t=AohlFmVs1LWlfB8T-1)
+
+---
+
+## 🕹️ How to Play Word Hunt
+
+1. **Launch the Game:**
+
+   * Open the deplyod link in the Readme file.
+
+2. **Choose a Movie Theme:**
+
+   * You’ll see a grid of popular movie titles.
+   * Click on a movie to start a word puzzle based on that movie.
+
+3. **Start the Word Hunt:**
+
+   * A grid of letters will appear.
+   * A list of hidden words (related to the chosen movie) will be shown on the side or below the grid.
+   * A countdown timer will begin.
+
+4. **Find the Hidden Words:**
+
+   * Click on letters in sequence to form words.
+   * Press **Enter** or a **Confirm** button to submit your word.
+   * Correct words will be highlighted in the grid and crossed off the list.
+
+5. **Game Rules:**
+
+   * You must find all the hidden words **before the timer runs out**.
+   * If you find all the words in time, you **win**!
+   * If time runs out before you finish, you **lose**.
+
+6. **Game Controls:**
+
+   * **Pause Button**: Freezes the game and timer.
+   * **Back Button**: Returns to the movie selection screen.
+   * **Play Again**: Restart the current puzzle after finishing.
+
+---
+
+## Assets & Media
+
+Images and GIFs used in this project (e.g., splash screen background and btn backgrounds, background visuals) were sourced from [Pinterest](https://www.pinterest.com/).
+
+> These assets are used strictly for educational and non-commercial purposes. All rights belong to the original creators.
+
+JavaScript Array Methods**: Referenced from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
+---
+
+## 🧪 Technologies Used
+
+* HTML5
+* CSS
+* JavaScript 
+* Git & GitHub
+* Figma (for UI/UX design mockups)
+
+---
+
+## 🎯 Next Steps / Future Enhancements
+
+1. Add a point-based scoring system.
+2. Allow players to choose a character from the selected movie.
+3. Add background audio based on the chosen movie.
+4. Introduce difficulty levels: Easy, Medium, and Hard.
+5. Create a leaderboard for competitive play.
+
+---
+
+
+
+
 
