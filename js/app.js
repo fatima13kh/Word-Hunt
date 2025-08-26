@@ -17,11 +17,8 @@ window.onload = function() {
     // get word list for the selected movie
     if (currentMovie && moviesWp[currentMovie]) {
         wordList = moviesWp[currentMovie].map(word => word.toUpperCase());
-        console.log('Word list:', wordList); 
-
-
+       
     } else {
-        console.error('Movie not found or no movie selected');
         wordList = [];
     }
 
@@ -61,7 +58,6 @@ function showInstructions() {
 // set the background image based on the selected movie
 function setMovieBackground(movieName) {
     if (!movieName) {
-        console.log('No movie name provided, using default background');
         return;
     }
 
@@ -77,8 +73,6 @@ function setMovieBackground(movieName) {
 
     document.body.style.backgroundImage = `url('${imagePath}')`;
 
-    console.log('Background set for movie:', movieName);
-    console.log('Image path:', imagePath);
 }
 
 // populate the word list based on the selected movie
@@ -228,7 +222,6 @@ function handleCellClick(event) {
 // update the selected word display
 function updateSelectedWord() {
     selectedWord = selectedCells.map(cell => cell.letter).join('');
-    console.log('Selected word:', selectedWord);
 }
 
 //end the game when time is up
@@ -331,12 +324,10 @@ document.addEventListener('DOMContentLoaded', () => {
 const submitButton = document.querySelector('.submitButton');
 if (submitButton) {
     submitButton.addEventListener('click', () => {
-        console.log('Submit clicked, selected word:', selectedWord);
         
         if (selectedWord && wordList.includes(selectedWord)) {
             // Check if word was already found
             if (foundWords.includes(selectedWord)) {
-                alert('You already found this word!');
                 return;
             }
             
