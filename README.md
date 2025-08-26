@@ -5,9 +5,9 @@
 
 ---
 
-![Splash Screen](Assets/splashScreen.png)
-![Game Screen](Assets/wordHuntScreen.png)
-![Instructions Screen](Assets/instructionsPopup.png)
+![Splash Screen](../Assets/splashScreen.png)
+![Game Screen](../Assets/wordHuntScreen.png)
+![Instructions Screen](../Assets/instructionsPopup.png)
 
 ---
 
@@ -56,7 +56,6 @@ Absolutely! Here's a clean, copy-paste-ready version of the **Game Concept Overv
 
 ## 🧠 Pseudocode
 
-```text
 Define necessary variables:
 - Movie titles array (6 movies for now)
 - For each movie: corresponding word list
