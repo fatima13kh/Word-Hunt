@@ -1,6 +1,3 @@
-
----
-
 # Word Hunt
 
 ---
@@ -186,7 +183,6 @@ JavaScript Array Methods**: Referenced from [MDN Web Docs](https://developer.moz
 4. Introduce difficulty levels: Easy, Medium, and Hard.
 5. Create a leaderboard for competitive play.
 
----
 
 
 
