@@ -20,8 +20,6 @@
 
 I chose to build **Word Hunt** to blend nostalgia with pop culture. By using familiar movie titles as the theme, it draws players into a personalized word puzzle experience while exercising their brain.
 
-Absolutely! Here's a clean, copy-paste-ready version of the **Game Concept Overview** formatted for your `README.md`:
-
 ---
 
 ## 🧠 Game Concept Overview
