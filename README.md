@@ -5,9 +5,9 @@
 
 ---
 
-![Splash Screen](../Assets/splashScreen.png)
-![Game Screen](../Assets/wordHuntScreen.png)
-![Instructions Screen](../Assets/instructionsPopup.png)
+![Splash Screen](./Assets/splashScreen.png)
+![Game Screen](./Assets/wordHuntScreen.png)
+![Instructions Screen](./Assets/instructionsPopup.png)
 
 ---
 
