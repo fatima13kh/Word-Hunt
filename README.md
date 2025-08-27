@@ -107,7 +107,7 @@ Provide reset/play again functionality:
 
 ### 🎮 Play the Game - Deployed Website Link
 
-[Click here to play the game](https://fatima13kh.github.io/word-hunt-browser-based-game-project/)
+[Click here to play the game](https://fatima13kh.github.io/Word-Hunt/)
 
 
 ### 📝 Planning Materials
